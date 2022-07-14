@@ -217,4 +217,23 @@ class FluxTest {
     }
 
 
+
+    @Test
+    fun `connectable flux auto connect test`() {
+        val fluxAutoConnect = Flux.range(1, 5)
+            .log()
+            .delayElements(Duration.ofMillis(100))
+            .publish()
+            .autoConnect(3)
+
+        StepVerifier.create(fluxAutoConnect)
+            .then(fluxAutoConnect::subscribe)
+            .then(fluxAutoConnect::subscribe)
+            .expectNext( 1,2,3,4,5)
+            .expectComplete()
+            .verify()
+
+    }
+
+
 }
