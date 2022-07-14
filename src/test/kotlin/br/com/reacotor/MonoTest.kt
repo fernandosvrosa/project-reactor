@@ -79,7 +79,7 @@ class MonoTest {
         mono.subscribe({ log.info("Value {}", it) }, { it.printStackTrace() }, { log.info("FINISHED!") })
 
         log.info("------------------------------------------------")
-        StepVerifier.create(mono).expectNext(name).verifyComplete()
+        StepVerifier.create(mono).expectNext(name.uppercase()).verifyComplete()
     }
 
 
